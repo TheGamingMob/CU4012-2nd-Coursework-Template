@@ -8,6 +8,7 @@
 #include "Framework/TileManager.h"
 #include <string>
 #include <iostream>
+#include "Player.h"
 
 
 class Level : public BaseLevel{
@@ -32,5 +33,5 @@ private:
 
 	bool editMode;
 	// Default variables for level class.
-
+	Player player;
 };

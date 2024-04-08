@@ -3,7 +3,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, World* w)
 {
 	window = hwnd;
 	input = in;
-	gameState = gs;
+	gameState = gs; 
 	world = w;
 	
 	if (!font.loadFromFile("font/arial.ttf")) {
@@ -14,6 +14,10 @@ Level::Level(sf::RenderWindow* hwnd, Input* in, GameState* gs, World* w)
 	sf::Vector2f viewSize = sf::Vector2f(window->getSize().x, window->getSize().y);
 	view.setSize(viewSize.x, viewSize.y);
 	view.setCenter(viewSize.x / 2, viewSize.y/ 2);
+
+	player.setPosition(100, 100);
+	player.setInput(input);
+	world->AddGameObject(player);
 }
 
 Level::~Level()
@@ -27,6 +31,8 @@ void Level::handleInput(float dt)
 	{
 		exit(0);
 	}
+
+	player.handleInput(dt);
 }
 
 // Update game objects
@@ -41,6 +47,8 @@ void Level::render()
 {
 	beginDraw();
 	DrawEditModeText();
+	window->draw(player);
+	window->draw(player.getDebugCollisionBox());
 	endDraw();
 }
 
